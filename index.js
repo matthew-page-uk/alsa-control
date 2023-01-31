@@ -8,18 +8,17 @@ const { exec } = require('child_process');
 
 async function setLevel(card, control, value) {
     const result = await (execute('amixer', `-c ${card} sset '${control}' ${parseInt(value)}`));
-    //console.log(result);
-    console.log(parseMixer(result));
+    return parseMixer(result);
 }
 
 async function getLevel(card, control) {
     const result = await (execute('amixer', `-c ${card} sget '${control}'`));
-    console.log(parseMixer(result));
+    return parseMixer(result);
 }
 
 async function get_mixerControls(card) {
     const result = await (execute('amixer', `-c ${card} scontents`));
-    console.log(parseMixer(result));
+    return parseMixer(result);
 }
 
 function parseMixer(data) {
@@ -81,12 +80,12 @@ function parseMixer(data) {
 
 async function play_devices() {
     const result = await execute('aplay', '-l');
-    console.log(deviceParser(result));
+    return deviceParser(result);
 }
 
 async function capture_devices() {
     const result = await execute('arecord', '-l');
-    console.log(deviceParser(result));
+    return deviceParser(result);
 }
 
 function deviceParser(data) {
@@ -121,4 +120,12 @@ function execute(cli, command) {
             resolve(output);
         });
     });
+}
+
+module.exports = {
+    play_devices,
+    capture_devices,
+    get_mixerControls,
+    setLevel,
+    getLevel
 }
