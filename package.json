@@ -1,0 +1,23 @@
+{
+  "name": "alsa-control",
+  "version": "1.0.0",
+  "description": "wrapper to control alsa devices using alsa cli utils",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matthew-page-bbc/alsa-control.git"
+  },
+  "keywords": [
+    "alsa",
+    "control"
+  ],
+  "author": "Matthew Page",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matthew-page-bbc/alsa-control/issues"
+  },
+  "homepage": "https://github.com/matthew-page-bbc/alsa-control#readme"
+}
