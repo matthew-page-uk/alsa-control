@@ -2,8 +2,20 @@ const { exec } = require('child_process');
 
 //play_devices();
 //capture_devices();
+//get_mixerControls(1);
+//setLevel(1, 'PCM', 24);
+//getLevel(1, 'PCM');
 
-get_mixerControls(1);
+async function setLevel(card, control, value) {
+    const result = await (execute('amixer', `-c ${card} sset '${control}' ${parseInt(value)}`));
+    //console.log(result);
+    console.log(parseMixer(result));
+}
+
+async function getLevel(card, control) {
+    const result = await (execute('amixer', `-c ${card} sget '${control}'`));
+    console.log(parseMixer(result));
+}
 
 async function get_mixerControls(card) {
     const result = await (execute('amixer', `-c ${card} scontents`));
@@ -57,7 +69,7 @@ function parseMixer(data) {
                         dB: parts[3],
                         switch: parts[4]
                     };
-                    control.state = status;
+                    control.state.push(status);
                 }
             })
         }
