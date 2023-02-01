@@ -7,7 +7,7 @@ const { exec } = require('child_process');
 //getLevel(1, 'PCM');
 
 async function setLevel(card, control, value) {
-    const result = await (execute('amixer', `-c ${card} sset '${control}' ${parseInt(value)}`));
+    const result = await (execute('amixer', `-c ${card} sset '${control}' ${value}`));
     return parseMixer(result);
 }
 
@@ -54,7 +54,7 @@ function parseMixer(data) {
             control.max = parts[3];
         }
 
-        if (control.channels) {
+        if (control?.channels) {
             control.channels.forEach((channelName) => {
                 let pattern = new RegExp(`(?<= ${channelName}: ).*`, 'g');
                 let state = line.match(pattern);
@@ -64,8 +64,8 @@ function parseMixer(data) {
                         channel: channelName,
                         type: parts[0],
                         value: parts[1],
-                        percentage: parts[2],
-                        dB: parts[3],
+                        percentage: parts[2].match(/\[(.[0-9]?)%\]/)?.[1],
+                        dB: parts[3].match(/\[(.*)dB\]/)?.[1],
                         switch: parts[4]
                     };
                     control.state.push(status);
