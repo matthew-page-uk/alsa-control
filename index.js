@@ -1,4 +1,13 @@
 const { exec } = require('child_process');
+const recordMeter = require('./record-meter');
+
+// let level = new recordMeter();
+// level.start('plughw:1,0');
+// level.on('data', console.log);
+
+// setTimeout(() => {
+//     level.destroy();
+// }, 5000);
 
 //play_devices();
 //capture_devices();
@@ -127,5 +136,6 @@ module.exports = {
     capture_devices,
     get_mixerControls,
     setLevel,
-    getLevel
+    getLevel,
+    recordMeter
 }
