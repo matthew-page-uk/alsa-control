@@ -19,10 +19,12 @@ class recordMeter extends EventEmitter {
     }
 
     stop() {
-        this.child.kill();
+        if (this.child) this.child.kill();
     }
 
     _running() {
+        if (!this.child) return;
+        
         this.child.stderr.on('data', (data) => {
             const line = data.toString();
             if (line.indexOf('| ') == 52) {
